@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "gtk.h": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c",
+        "random": "c",
+        "stdio.h": "c",
+        "sqlite.h": "c",
+        "unistd.h": "c",
+        "stdlib.h": "c",
+        "string.h": "c",
+        "link_details.h": "c"
+    }
+}
