@@ -35,16 +35,19 @@ string *replace_string(string *str, char *src, char *dst)
         ret_val = (string *)malloc(sizeof(string));
         int str_since_src_len = strlen(str_since_src);
         int str_len_short = str->size - (str_since_src_len);
-        ret_val->size = (str_len_short + dst_len + 2);
+        
+        ret_val->size = ((str->size - src_len) + dst_len);
         if (ret_val != NULL)
         {   
-            char *new_str = (char *)malloc(ret_val->size);
+            char *new_str = (char *)malloc(ret_val->size + 1);
             if (new_str != NULL)
             {
                 strncpy(new_str,str->str, str_len_short); // First part of string
-                strncpy(&(new_str[(str_len_short+1)]),dst,dst_len); // Replace string
-                strncpy(&(new_str[(str_len_short+dst_len)]),&(str_since_src[src_len]),(ret_val->size - (str_len_short + dst_len)));
-                new_str[(ret_val->size - 1)] = '\0';
+                strncpy(&(new_str[(str_len_short)]),dst,dst_len); // Replace string
+
+                int rest_of_str_len = strlen(&(str_since_src[src_len]));
+                strncpy(&(new_str[(str_len_short+dst_len)]),&(str_since_src[src_len]),rest_of_str_len);
+                new_str[(ret_val->size)] = '\0';
                 ret_val->str = new_str;
 
                 return ret_val;

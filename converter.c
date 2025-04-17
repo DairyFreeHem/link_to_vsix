@@ -27,11 +27,9 @@ int convert_link(string *link)
     }
 
     string *download_link = replace_string(download_template,"<developer>",developer);
-    string *download_link_2 = replace_string(download_link, "<package>",package_info);
+    string *download_link_2 = replace_string(download_link, "<package>",package_name);
 
     delete_string(download_link);
-
-    printf("%s \n",download_link_2->str);
     delete_string(download_link_2);
     
     
