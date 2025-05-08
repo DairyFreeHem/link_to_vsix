@@ -18,8 +18,10 @@ typedef struct string
 } string;
 
 
-extern string *new_string(char* text);
+extern string *new_string(char *text);
 extern void delete_string(string *str);
 extern string *replace_string(string *str, char* src, char *dst);
+extern void replace_new_string(string **str, char *src, char *dst );
+
 
 #endif

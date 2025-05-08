@@ -5,10 +5,10 @@
 #include "string.h"
 
 string *download_template;
+string *version = NULL;
 
 
-
-int convert_link(string *link)
+int convert_link(string *link, link_details **output)
 {
     char *developer, *package_name;
     char *link_package = strstr(link->str,"itemName=");
@@ -23,15 +23,22 @@ int convert_link(string *link)
     if (package_name == NULL)
     {
         printf("Error, Package name missing, please make sure your URL is correct\n");
+        FREEUP(output);
         return -1;
     }
 
     string *download_link = replace_string(download_template,"<developer>",developer);
-    string *download_link_2 = replace_string(download_link, "<package>",package_name);
+    replace_new_string(&download_link, "<package>",package_name);
+    if (version != NULL)
+    {
+        replace_new_string(&download_link,"<version>",version->str);
+    }
+    
+     *output = new_link(download_link->str,package_name,developer,version->str);
+
 
     delete_string(download_link);
-    delete_string(download_link_2);
-    
+    download_link = NULL;
     
     return 0;
 }
@@ -42,11 +49,22 @@ int main(int argc, char* argv[])
     int return_code = 0;
     if (argc > 1)
     {
+        if (argc > 2)
+        {
+            version = new_string(argv[2]);
+        }
+        
         download_template = new_string("https://marketplace.visualstudio.com/_apis/public/gallery/publishers/<developer>/vsextensions/<package>/<version>/vspackage");
         string *market_link = new_string(argv[1]);
-        return_code = convert_link(market_link);
+        link_details *det = NULL;
+        return_code = convert_link(market_link,&det);
 
+        printf("%s \n",det->link->str );
+
+        delete_link(det);
+        det = NULL;
         delete_string(market_link);
+        market_link = NULL;
         return return_code;
     }
     else

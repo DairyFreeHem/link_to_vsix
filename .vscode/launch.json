@@ -5,7 +5,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/out",
-            "args": ["https://marketplace.visualstudio.com/items?itemName=cantonios.project-templates"],
+            "args": ["https://marketplace.visualstudio.com/items?itemName=cantonios.project-templates","1.2.0"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

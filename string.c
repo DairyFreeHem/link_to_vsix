@@ -18,10 +18,26 @@ void delete_string(string *str)
     if (str->str != NULL)
     {
         free(str->str);
+
     }
+    if (str != NULL)
+    {
+        free(str);
+    }
+
     
 }
 
+void replace_new_string(string **str, char *src, char *dst )
+{
+    string *new_str = replace_string(*str,src,dst);
+    if (new_str != NULL)
+    {
+        delete_string(*str);
+        *str = new_str;
+    }
+    
+}
 
 string *replace_string(string *str, char *src, char *dst)
 {
